@@ -1,0 +1,45 @@
+<html>
+    <script>
+        // Create a page with the folllowing:
+        // Name (text vox)
+        // Age (number)
+        // License ? (checkbox)
+
+        // A click on a button will write to the console a senetence with 
+        // all given data, for example:
+        // My name is [Avi] i'm [20] years old and i have/no a license 
+
+        function senetence()
+        {
+            senetence=""
+            var firstName = document.getElementById('fname');
+            var lastName = document.getElementById('lname');
+            var age = document.getElementById('Age');
+            var license = document.getElementById('License').checked;
+
+            senetence += "My name is " + firstName.value + " " + lastName.value + " I'm " + age.value + " years old and i " 
+                license==true? "have a license.":"have no license.";
+                
+            console.log(senetence)
+        }
+
+
+
+    </script>
+
+    <body>
+
+        <br><h1>Wellcom to the web</h1><br>
+        <table border="1"><th><br>
+            First Name: <input type="text" id="fname"><br>
+            Last Name: <input type="text" id="lname"><br>
+            Age: <input id="Age" type="number" value="15" max="99" min="1"><br>
+            License ? <input id="License" type="checkbox"><br>
+            <input type="button" onclick="senetence()" value="Click Here">
+        </th></table><br>
+
+    </body>
+
+
+
+</html>

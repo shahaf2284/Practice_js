@@ -1,0 +1,53 @@
+<html>
+    <script>
+        function Copytext()
+        {
+            var obj1 = document.getElementById('txt1')
+            var obj2 = document.getElementById('txt2')
+            obj2.value = obj1.value
+
+        }
+        function CopyPassword()
+        {
+            var obj1 = document.getElementById('pas1');
+            var obj2 = document.getElementById('pas2');
+            obj2.value = obj1.value
+
+        // Create a page whit 2 text boxes and a button 
+        // Each Button click will swap between the texts 
+        }
+
+        function swapText()
+        {
+            
+            var obj1 = document.getElementById('text1');
+            var obj2 = document.getElementById('text2');
+            let Temp = obj2.value;
+            obj2.value = obj1.value;
+            obj1.value = Temp;
+
+        }
+
+    </script>
+
+    <body>
+
+        <!---Text box one--->
+        From: <input id="txt1" type="text" onkeyup="Copytext()"><br>
+        To: <input id="txt2" type="text"><br><br><br>
+        Enter password: <input type="password" id="pas1" onkeyup="CopyPassword()"><br>
+        Enter again: <input type="password" id="pas2">
+
+        <table border="1">
+
+            <th>
+                text1: <input id="text1" type="text"><br>
+                text2: <input id="text2" type="text"><br><br>
+                <input type="button" onclick="swapText()" value="Click here to swap">
+            </th>
+
+        </table>
+
+    </body>
+
+</html>

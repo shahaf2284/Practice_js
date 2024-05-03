@@ -1,0 +1,40 @@
+
+
+
+<html>
+<script>
+
+// Creat a page with a textbox, a button and a div.
+// Every button click will add the given new number to a presented total.
+var Tot = 0;
+function sum()
+{
+    var obj1 = document.getElementById('txt');
+    var obj2 = document.getElementById('divTOT');
+
+    if (!isNaN(parseInt(obj1.value))) {
+        console.log("Input is a number");
+        var parsedValue = parseInt(obj1.value);
+        Tot += parsedValue; // Assuming Tot is declared and initialized somewhere
+        obj2.innerText = Tot;
+    } else {
+        console.log("This is not a number. Please try again.");
+    }
+}
+
+</script>
+
+<body>
+    <br><br>
+    <table border="1">
+        <th>
+            <input id="txt" type="text">
+            <input onclick="sum()" type="button" value="+"><br>
+            Total: 
+            <div id="divTOT">0</div>
+        </th>
+    </table>
+
+</body>
+
+</html>
