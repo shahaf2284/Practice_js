@@ -1,0 +1,2 @@
+first we need to run this command in the terminal:
+npm init --yes

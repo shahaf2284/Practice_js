@@ -1,0 +1,26 @@
+
+{
+    "persons":
+        [{
+            "name" : "Ron",
+            "address" : {
+                "city" : "Haifa",
+                "street" : 
+                {
+                    "name" : "Herzel",
+                    "number" : 20
+                }
+            }
+        },
+        {
+            "name" : "dana",
+            "address" : {
+                "city" : "Tel aviv",
+                "street" : 
+                {
+                    "name" : "mose",
+                    "number" : 19
+                }
+            }
+        }]
+}
