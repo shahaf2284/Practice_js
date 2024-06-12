@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="getProducts()">
+
+    <h1>Products Page!</h1>
+
+    <script>
+        async function getProducts() {
+            const token = localStorage.getItem("token")
+            const resp = await fetch("http://localhost:8000/products", {
+             
+                headers: { token: token }
+            })
+            const products = await resp.json()
+            console.log(products)
+        }
+    </script>
+</body>
+
+</html>

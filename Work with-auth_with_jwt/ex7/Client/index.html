@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+</head>
+
+<body onload="getAllMovies()">
+
+    <table border=1 id="tbl">
+        <tr>
+            <th>Name</th>
+            <th>Director</th>
+            <th>Premiered Year</th>
+            <th>Delete</th>
+
+        </tr>
+
+    </table>
+
+
+    <br>
+    <h3>Select Movie To Update</h3>
+    <select id="select-movie" onchange="userSelectedMovie()">
+        <option value="" disabled selected>Select Movie....</option>
+
+    </select> <br>
+
+    <input type="text" disabled id="movie-id">
+    <input type="text" placeholder="name" id="movie-name"> <br>
+    <input type="text" placeholder="director" id="movie-director"> <br>
+    <input type="text" placeholder="premieredYear" id="movie-premiered"> <br>
+    <button onclick="updateMovie()">Update</button> <button onclick="createMovie()">Create</button>
+
+
+
+
+    <script>
+
+
+            async function createMovie() {
+                    const name = document.getElementById("movie-name").value
+                    const director = document.getElementById("movie-director").value
+                    const premieredYear = +document.getElementById("movie-premiered").value
+                  
+
+                    const response = await fetch(`http://localhost:8000/movies`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name, director, premieredYear })
+                    })
+                    const data = await response.json()
+                    alert(data.status)
+                    window.location.reload()
+                }
+
+        async function updateMovie() {
+            const name = document.getElementById("movie-name").value
+            const director = document.getElementById("movie-director").value
+            const premieredYear = +document.getElementById("movie-premiered").value
+            const movieId = document.getElementById("movie-id").value
+
+            const response = await fetch(`http://localhost:8000/movies/${movieId}`, {
+                method: "PUT",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({name, director,premieredYear})
+            })
+            const data = await response.json()
+            alert(data.status)
+            window.location.reload()
+
+        }
+
+        async function userSelectedMovie() {
+            const id = document.getElementById("select-movie").value
+            document.getElementById("movie-id").value = id
+
+        }
+
+
+
+        async function getAllMovies() {
+
+            const response = await fetch("http://localhost:8000/movies")
+
+            const data = await response.json()
+            const movies = data.movies
+
+            const table = document.getElementById("tbl")
+            const select = document.getElementById("select-movie")
+
+            movies.forEach((movie) => {
+                // new tr
+                const newTr = document.createElement("tr")
+
+                // new cells (3)
+                const tdName = document.createElement("td")
+                const tdDirector = document.createElement("td")
+                const tdPremieredYear = document.createElement("td")
+                const tdDelete = document.createElement("td")
+                const deleteButton = document.createElement("button")
+                deleteButton.innerText = "Delete"
+                deleteButton.onclick = async () => {
+                   const response  = await  fetch(`http://localhost:8000/movies/${movie._id}`, {
+                        method: "DELETE"
+                    })
+                    const data = await response.json()
+                    alert(data.status)
+                    window.location.reload()
+                }
+
+                tdDelete.appendChild(deleteButton)
+
+
+                //  populate cells with movie data
+                tdName.innerText = movie.name
+                tdDirector.innerText = movie.director
+                tdPremieredYear.innerText = movie.premieredYear
+
+                // add the cells to the new row
+                newTr.appendChild(tdName)
+                newTr.appendChild(tdDirector)
+                newTr.appendChild(tdPremieredYear)
+                newTr.appendChild(deleteButton)
+
+                table.appendChild(newTr)
+
+
+                const newOption = document.createElement("option")
+                newOption.value = movie._id
+                newOption.innerText = movie.name
+                select.appendChild(newOption)
+
+            })
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
