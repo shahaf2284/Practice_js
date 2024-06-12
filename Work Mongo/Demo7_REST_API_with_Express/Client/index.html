@@ -1,0 +1,22 @@
+<html>
+
+<body>
+
+    <button onclick="getData()">Get Data</button>
+
+
+
+    <script>
+
+        const getData = async () => {
+            const resp = await fetch("http://localhost:8000/users")
+            const data = await resp.json()
+            console.log(data)
+        }
+
+
+    </script>
+
+</body>
+
+</html>

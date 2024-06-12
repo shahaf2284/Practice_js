@@ -1,0 +1,66 @@
+<html>
+
+<body onload="getAllUsers()">
+
+    <table border="1" id="tbl">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+
+
+        </tr>
+    </table>
+
+
+    <script>
+
+        async function getAllUsers() {
+            const resp = await fetch("http://localhost:8000/users")
+            const users = await resp.json()
+
+            const table = document.getElementById("tbl")
+
+            users.forEach((user) => {
+                // creating a new row 
+                const newTr = document.createElement("tr") // <tr></tr>
+
+
+
+                // create new cells
+                const tdId = document.createElement("td") // <td></td>
+
+                tdId.onclick = async () => {
+                    const resp = await fetch(`http://localhost:8000/users/${user._id}`, {
+                        method: "DELETE"
+                    })
+                    const userById = await resp.json()
+                
+                    window.location.reload()
+                }
+
+                const tdName = document.createElement("td") // <td></td> 
+                const tdAge = document.createElement("td") // <td></td>
+
+                //  add data to cells
+                tdId.innerText = user._id
+                tdName.innerText = user.name
+                tdAge.innerText = user.age
+
+                newTr.appendChild(tdId)
+                newTr.appendChild(tdName)
+                newTr.appendChild(tdAge)
+
+                table.appendChild(newTr)
+
+
+
+            })
+
+
+        }
+
+    </script>
+</body>
+
+</html>

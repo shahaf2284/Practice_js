@@ -1,0 +1,94 @@
+<html>
+    <body onload="getMovies()">
+        <h1>My movies:</h1>
+        <table border="1" id="tbl">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Director</th>
+                <th>premieredYear</th>
+            </tr>
+        </table>
+        <br><br>
+        <table border="1">
+            <tr>
+                <th>
+                    Add movie
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    Name: <input type="text" id="name"><br>
+                    Director: <input type="text" id="director" > <br>
+                    premieredYear: <input type="text" id="premieredYear" > <br>
+                    <button onclick="AddMovie()"> Click here</button><br>
+                </td>
+            </tr>
+        </table>
+
+        <script>
+          const url = "https://72vw44gf-8000.euw.devtunnels.ms/movies"
+          async function getMovies(){
+            //Get request 
+            const resp = await fetch(url)
+            const movies = await resp.json()
+            console.log(movies)
+            const table = document.getElementById("tbl")
+
+            movies.forEach((movie) => {
+                // new row 
+                const newTr = document.createElement("tr")
+
+                // create new cells
+                const tdid = document.createElement("td")
+                tdid.onclick = async () => {
+                    const resp = await fetch(`${url}/${movie._id}`, {
+                        method: "DELETE"
+                    })
+                    const movieById = await resp.json()
+                    console.log(movieById)
+                    window.location.reload()
+                }
+                const tdName = document.createElement("td")
+                const tdDirector = document.createElement("td")
+                const tdPremieredYear = document.createElement("td")
+
+                tdid.innerText = movie._id
+                tdName.innerText = movie.name
+                tdDirector.innerText = movie.director
+                tdPremieredYear.innerText = movie.premieredYear
+
+                newTr.appendChild(tdid)
+                newTr.appendChild(tdName)
+                newTr.appendChild(tdDirector)
+                newTr.appendChild(tdPremieredYear)
+
+                table.appendChild(newTr)
+            });
+          }
+
+
+        async function AddMovie(){
+            // Create the object
+            const obj = 
+            {
+                name : document.getElementById("name").value,
+                director : document.getElementById("director").value,
+                premieredYear : document.getElementById("premieredYear").value
+            }
+
+            const fetchParameters ={
+                method : 'POST',
+                body :JSON.stringify(obj), // convert object to a string json format 
+                headers: {'Content-Type': 'application/json'}
+            }
+
+            //Send the request
+            const response = await fetch(url, fetchParameters)
+            const Status = await response.json() // middleware to convert the response to JSON format
+            console.log(Status)
+            window.location.reload()
+        }          
+        </script>
+    </body>
+</html>
