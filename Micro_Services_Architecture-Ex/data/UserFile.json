@@ -1,0 +1,6 @@
+{
+    "users":[
+        {"username": "Bret", "phone": ["055-555","052-222"] },
+        {"username": "Antonette", "phone": ["053-333","054-444"] }
+    ]
+}
